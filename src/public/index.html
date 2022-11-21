@@ -8,5 +8,20 @@
 </head>
 <body>
     <h1>Bienvenid@s</h1>
+    <section>
+        <h3>Agrega un producto:</h3>
+        <form id="productsForm">
+            <label class="label">Id del producto</label>
+            <input id="idInput" class="input" type="number" name="id" value="4" min="4" max="50" required>
+            <label class="label">Nombre del producto</label>
+            <input class="input" type="text" name="title" required>
+            <label class="label">Precio del producto</label>
+            <input id="priceInput" class="input" type="number" name="price" value="1" min="0" max="10000" required>
+            <label class="label">Imagen del producto</label>
+            <input class="input" type="file" name="thumbnail" required>
+            <input class="btn" type="submit">
+        </form>
+    </section>
+    <script src="index.js"></script>
 </body>
 </html>

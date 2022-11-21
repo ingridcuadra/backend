@@ -1,5 +1,6 @@
 import { Router } from "express";
 import fs from 'fs';
+import { uploader } from '../utils.js';
 
 const productRouter = Router();
 
@@ -28,11 +29,17 @@ productRouter.get('/:idProduct', (req, res) => {
     }
 })
 
-productRouter.post('/', (req, res) => {
-    const productToInsert = req.body.producto;
+productRouter.post('/', uploader.single('image'), (req, res) => {
+    const {id, title, price, thumbnail} = req.body;
+    const product = {
+        id,
+        title,
+        price,
+        thumbnail
+    }
     let products = returnProducts('./productos.json')
-    products.push(productToInsert);
-    res.send({status:"Producto agregado", payload:productToInsert});
+    products.push(product);
+    res.send({status:"Producto agregado", payload:product});
 })
 
 //Producto para usar con POST
