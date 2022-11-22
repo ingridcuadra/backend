@@ -8,6 +8,6 @@ form.addEventListener('submit', e => {
     let sendProd = {producto:{...prod}}
     fetch('/api/productos', {
         method:'POST',
-        body: data
+        body: prod
     }).then(result => result.json()).then(json => console.log(json))
 })

@@ -29,7 +29,7 @@ productRouter.get('/:idProduct', (req, res) => {
     }
 })
 
-productRouter.post('/', uploader.single('image'), (req, res) => {
+productRouter.post('/', uploader.single('thumbnail'), (req, res) => {
     const {id, title, price, thumbnail} = req.body;
     const product = {
         id,
@@ -47,7 +47,7 @@ productRouter.post('/', uploader.single('image'), (req, res) => {
 //     "producto":{
 //         "id": 4,
 // 		   "title": "Foquita",
-// 		   "price": 199.99,
+// 		   "price": 199,
 // 		   "thumbnail": "https://drive.google.com/uc?export=view&id=142BcrojPC52ZiCC76rjSJhFWM-ZOe101"
 //     }
 // }
@@ -63,7 +63,7 @@ productRouter.put('/:idProduct', (req, res) => {
 //     "producto":{
 //         "id": 4,
 // 		   "title": "Foquita",
-// 		   "price": 200.99,
+// 		   "price": 200,
 // 		   "thumbnail": "https://drive.google.com/uc?export=view&id=142BcrojPC52ZiCC76rjSJhFWM-ZOe101"
 //     }
 // }
