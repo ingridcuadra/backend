@@ -1,26 +1,18 @@
 import { Router } from "express";
 import fs from 'fs';
 import { uploader } from '../utils.js';
+import Contenedor from "../container/Contenedor.js";
 
 const productRouter = Router();
+const contenedor = new Contenedor();
 
-const returnProducts = (ruta) => {
-    if (fs.existsSync(ruta)) {
-        let data = fs.readFileSync(ruta, 'utf-8')
-        let products = JSON.parse(data)
-        return products;
-    } else {
-        return console.log("Error leyendo datos")
-    }
-}
-
-productRouter.get('/', (req, res) => {
-    res.send(returnProducts('./productos.json'))
+productRouter.get('/', async(req, res) => {
+    const productos = await contenedor.getAll();
 })
 
 productRouter.get('/:idProduct', (req, res) => {
     const id = req.params.idProduct
-    let products = returnProducts('./productos.json')
+    let products = returnProducts(contenedor.getById())
     let product = products.find((product) => product.id == id);
     if (product) {
         res.send(product)
@@ -29,7 +21,7 @@ productRouter.get('/:idProduct', (req, res) => {
     }
 })
 
-productRouter.post('/', uploader.single('thumbnail'), (req, res) => {
+productRouter.post('/', uploader.single('thumbnail'), async(req, res) => {
     const {id, title, price, thumbnail} = req.body;
     const product = {
         id,
@@ -37,9 +29,8 @@ productRouter.post('/', uploader.single('thumbnail'), (req, res) => {
         price,
         thumbnail
     }
-    let products = returnProducts('./productos.json')
-    products.push(product);
-    res.send({status:"Producto agregado", payload:product});
+    let result = await contenedor.saveNewProd(producto)
+    res.send({status:"Producto agregado", payload:result});
 })
 
 //Producto para usar con POST
@@ -68,9 +59,9 @@ productRouter.put('/:idProduct', (req, res) => {
 //     }
 // }
 
-productRouter.delete('/:idProduct', (req, res) => {
+productRouter.delete('/:idProduct', async (req, res) => {
     const id = req.params.idProduct
-    let products = returnProducts('./productos.json')
+    let products = await contenedor.deleteById();
     let product = products.filter((product) => product.id != id);
     if (product) {
         res.send(product)
