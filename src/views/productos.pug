@@ -1,0 +1,14 @@
+html
+    head
+        title="Catálogo de productos"
+    body
+        div
+            h1="Hola, este es el catálogo"
+        div
+            ul 
+                each user in users
+                    li
+                        p=this.id
+                        p=this.title
+                        p=this.price
+                        p=this.thumbnail
