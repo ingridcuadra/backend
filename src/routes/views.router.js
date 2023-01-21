@@ -5,7 +5,7 @@ const viewRouter = Router();
 const contenedor = new Contenedor();
 
 viewRouter.get('/', (req, res) => {
-    res.render("home")
+    res.render('home')
 });
 
 viewRouter.get('/productos', async(req, res) => {
