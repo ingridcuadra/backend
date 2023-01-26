@@ -8,7 +8,11 @@ const contenedor = new Contenedor();
 
 productRouter.get('/', async(req, res) => {
     const productos = await contenedor.getAll();
-})
+    res.render('productos', {
+        name: "Ingrid",
+        productos
+    })
+});
 
 productRouter.get('/:idProduct', (req, res) => {
     const id = req.params.idProduct
