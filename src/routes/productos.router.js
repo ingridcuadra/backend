@@ -1,5 +1,4 @@
 import { Router } from "express";
-import fs from 'fs';
 import { uploader } from '../utils.js';
 import Contenedor from "../container/Contenedor.js";
 
