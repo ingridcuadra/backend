@@ -7,7 +7,8 @@ import { Server } from 'socket.io';
 import chatRouter from './routes/chat.router.js';
 
 const app = express();
-const server = app.listen(8080, ()=>console.log("Escuchando Express :)"));
+const PORT = process.env.PORT||8080;
+const server = app.listen(PORT, ()=>console.log(`Escuchando Express :) en el puerto ${PORT}`));
 
 app.engine('handlebars', handlebars.engine());
 app.set('views', __dirname+'/views');
@@ -18,8 +19,12 @@ app.use(express.static(__dirname+'/public'));
 
 const io = new Server(server);
 
+app.use((req, res, next)=>{
+    req.io = io;
+});
+
 app.use('/', viewRouter);
-app.use('/api/productos', productRouter);
+app.use('/productos', productRouter);
 app.use('/chat', chatRouter);
 
 const mensajes = [];

@@ -1,6 +1,9 @@
 <div>
-    <h1>Hola {{name}}, este es el catálogo de productos</h1>
-    {{#each users}}
+    <h3>Ingrese los productos que desee</h3>
+    <form></form>
+    <div>
+        <h4>Todos los productos:</h4>
+        {{#each productos}}
         <div>
             <p>{{this.id}}</p>
             <p>{{this.title}}</p>
@@ -9,4 +12,5 @@
             <br/>
         </div>
     {{/each}}
+    </div>
 </div>
