@@ -7,8 +7,9 @@ import { Server } from 'socket.io';
 import chatRouter from './routes/chat.router.js';
 
 const app = express();
+
 const PORT = process.env.PORT||8080;
-const server = app.listen(PORT, ()=>console.log(`Escuchando Express :) en el puerto ${PORT}`));
+const server = app.listen(PORT, ()=>console.log(`Escuchando Express :) en el puerto ${server.address().port}`));
 
 app.engine('handlebars', handlebars.engine());
 app.set('views', __dirname+'/views');
