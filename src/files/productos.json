@@ -3,18 +3,18 @@
 		"id": 1,
 		"title": "Osito",
 		"price": 199.99,
-		"thumbnail": "https://drive.google.com/uc?export=view&id=11uc-59GI0zaNrYU9JiZVh75HasVozs_Q"
+		"image": "https://drive.google.com/uc?export=view&id=11uc-59GI0zaNrYU9JiZVh75HasVozs_Q"
 	},
 	{
 		"id": 2,
 		"title": "Gatito",
 		"price": 199.99,
-		"thumbnail": "https://drive.google.com/uc?export=view&id=14PfLaUF6BBMtua7yyEycN7xvpwQTNmqL"
+		"image": "https://drive.google.com/uc?export=view&id=14PfLaUF6BBMtua7yyEycN7xvpwQTNmqL"
 	},
 	{
 		"id": 3,
 		"title": "Sapito",
 		"price": 199.99,
-		"thumbnail": "https://drive.google.com/uc?export=view&id=13beDo6GZedh5rZU65e11OLM4_kPANsWy"
+		"image": "https://drive.google.com/uc?export=view&id=13beDo6GZedh5rZU65e11OLM4_kPANsWy"
 	}
 ]

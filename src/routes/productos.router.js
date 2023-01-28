@@ -17,13 +17,13 @@ productRouter.get('/:idProduct', async(req, res) => {
 });
 
 productRouter.post('/', async(req, res) => {
-    const {id, title, price, thumbnail} = req.body;
-    if(!id||!title||!price||!thumbnail) return res.status(400).send({status:"Error", error:"Valores incompletos"});
+    const {id, title, price, image} = req.body;
+    if(!id||!title||!price||!image) return res.status(400).send({status:"Error", error:"Valores incompletos"});
     const producto = {
         id,
         title,
         price,
-        thumbnail
+        image
     };
     let result = await contenedor.save(producto);
     res.send({status:"Producto agregado", payload:result});
@@ -35,7 +35,7 @@ productRouter.post('/', async(req, res) => {
 //         "id": 4,
 // 		   "title": "Foquita",
 // 		   "price": 199,
-// 		   "thumbnail": "https://drive.google.com/uc?export=view&id=142BcrojPC52ZiCC76rjSJhFWM-ZOe101"
+// 		   "image": "https://drive.google.com/uc?export=view&id=142BcrojPC52ZiCC76rjSJhFWM-ZOe101"
 //     }
 // }
 
@@ -43,13 +43,13 @@ productRouter.put('/:idProduct', async(req, res) => {
     const idProduct = req.params.idProduct;
     if (!idProduct) return res.status(400).send({status:"Error", error:"Id inválido"});
 
-    const {id, title, price, thumbnail} = req.body;
-    if(!id||!title||!price||!thumbnail) return res.status(400).send({status:"Error", error:"Valores incompletos"});
+    const {id, title, price, image} = req.body;
+    if(!id||!title||!price||!image) return res.status(400).send({status:"Error", error:"Valores incompletos"});
     const productToUpdate = {
         id,
         title,
         price,
-        thumbnail
+        image
     };
     let prodUpdate = await contenedor.update(productToUpdate, idProduct);
     res.send({status:"Producto actualizado", payload:prodUpdate});
@@ -61,7 +61,7 @@ productRouter.put('/:idProduct', async(req, res) => {
 //         "id": 4,
 // 		   "title": "Foquita",
 // 		   "price": 200,
-// 		   "thumbnail": "https://drive.google.com/uc?export=view&id=142BcrojPC52ZiCC76rjSJhFWM-ZOe101"
+// 		   "image": "https://drive.google.com/uc?export=view&id=142BcrojPC52ZiCC76rjSJhFWM-ZOe101"
 //     }
 // }
 
