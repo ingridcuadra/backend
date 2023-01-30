@@ -5,7 +5,7 @@ import viewRouter from './routes/views.router.js';
 import apiProductRouter from './routes/api.productos.router.js';
 import { Server } from 'socket.io';
 import chatRouter from './routes/chat.router.js';
-import productosRouter from './routes/productos.router.js';
+import productosRealTimeRouter from './routes/productos.real.time.router.js';
 
 const app = express();
 
@@ -21,13 +21,9 @@ app.use(express.static(__dirname+'/public'));
 
 const io = new Server(server);
 
-// app.use((req, res, next)=>{
-//     req.io = io;
-// });
-
 app.use('/', viewRouter);
 app.use('/api/productos', apiProductRouter);
-app.use('/productos', productosRouter);
+app.use('/productos-en-tiempo-real', productosRealTimeRouter);
 app.use('/chat', chatRouter);
 
 const mensajes = [];
