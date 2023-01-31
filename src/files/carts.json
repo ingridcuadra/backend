@@ -1,7 +1,14 @@
 [
 	{
 		"id": 1,
-		"products": []
+		"products": [
+			{
+				"id": 2,
+				"quantity": {
+					"quantity": 5
+				}
+			}
+		]
 	},
 	{
 		"id": 2,

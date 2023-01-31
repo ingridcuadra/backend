@@ -1,4 +1,5 @@
 import fs from 'fs';
+import { cachedDataVersionTag } from 'v8';
 import __dirname from '../utils.js';
 
 export default class CartsManager {
@@ -53,16 +54,18 @@ export default class CartsManager {
     }
     isInCart = async(cid, pid) => {
         const carts = await this.getCarts();
+        let prodInCart;
         const cart = carts.map(cart => {
             if (cart.id === cid) {
-                cart.find(product => product.id === pid) ? true : false;
+                prodInCart = cart
+                cart.products.find(prod => prod.id === pid) ? true : false
             }
         })
     }
     deleteAllFromCarts = async(cid) => {
         const carts = await this.getCarts();
-        let emptyCart = "";
-        const cartToDelete = carts.find(cart => cart.id === cid);
+        let emptyCart = [];
+        let cartToDelete = carts.find(cart => cart.id === cid);
         cartToDelete = emptyCart;
         await fs.promises.writeFile(this.path,JSON.stringify(cartToDelete))
     }
@@ -72,7 +75,7 @@ export default class CartsManager {
         const newCart = carts.map(cart => {
             if(cart.id === cid){
                 updatedCart = cart;
-                cart.filter(cart => cart.id !== pid);
+                cart.products.filter(prod => prod.id !== pid);
             }
         })
         await fs.promises.writeFile(this.path,JSON.stringify(newCart, null, '\t'))

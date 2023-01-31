@@ -3,6 +3,7 @@ import ProductsManager from "../Managers/ProductsManager.js";
 
 const productsRouter = Router();
 const productsManager = new ProductsManager();
+let admin = true;
 
 productsRouter.get('/', async(req, res) => {
     let products = await productsManager.getAllProducts();
@@ -26,19 +27,21 @@ const ramdomCode = (length) => {
 }
 
 productsRouter.post('/', async(req, res) => {
-    const {title, image, description, price, stock} = req.body;
-    if(!title || !image || !description || !price || !stock) return res.status(400).send({status: "Error", error: "Valores incompletos"});
-    const product = {
-        title,
-        image,
-        description, 
-        price,
-        stock
-    }
-    product.timestamp = Date.now()
-    product.code = ramdomCode(7)
-    await productsManager.saveProduct(product);
-    res.send({status: "success", message: "Producto agregado"});
+    if (admin == true) {
+        const {title, image, description, price, stock} = req.body;
+        if(!title || !image || !description || !price || !stock) return res.status(400).send({status: "Error", error: "Valores incompletos"});
+        const product = {
+            title,
+            image,
+            description, 
+            price,
+            stock
+        }
+        product.timestamp = Date.now()
+        product.code = ramdomCode(7)
+        await productsManager.saveProduct(product);
+        res.send({status: "success", message: "Producto agregado"});
+    };
 });
 
 // Producto de ejemplo para usar con el método POST en Postman
@@ -51,27 +54,29 @@ productsRouter.post('/', async(req, res) => {
 // 	}
 
 productsRouter.put('/:pid', async(req, res) => {
-    const { pid } = req.params;
-    if (!pid) return res.status(400).send({status: "Error", error: "Id inválido"});
+    if (admin == true) {
+        const { pid } = req.params;
+        if (!pid) return res.status(400).send({status: "Error", error: "Id inválido"});
 
-    let products = await productsManager.getAllProducts();
+        let products = await productsManager.getAllProducts();
 
-    const {title, image, description, price, stock} = req.body;
-    if(!title || !image || !description || !price || !stock) return res.status(400).send({status: "Error", error: "Valores incompletos"});
-    const productToUpdate = {
-        title,
-        image,
-        description, 
-        price,
-        stock
-    }
-    productToUpdate.timestamp = Date.now()
-    if (products.some(prod => prod.id === pid)) {
+        const {title, image, description, price, stock} = req.body;
+        if(!title || !image || !description || !price || !stock) return res.status(400).send({status: "Error", error: "Valores incompletos"});
+        const productToUpdate = {
+            title,
+            image,
+            description, 
+            price,
+            stock
+        }
+        productToUpdate.timestamp = Date.now()
+        if (products.some(prod => prod.id === pid)) {
         productToUpdate.code = products.find(prod => prod.id === pid).code
         await productsManager.updateProduct(productToUpdate, parseInt(pid));
         res.send({status: "success", message: "Producto actualizado"});
-    } else {
+        } else {
         res.send({status: "error", error: "Producto no encontrado"});
+        };
     };
 });
 
@@ -85,10 +90,12 @@ productsRouter.put('/:pid', async(req, res) => {
 // 	}
 
 productsRouter.delete('/:pid', async (req, res) => {
-    const { pid } = req.params;
-    if (!pid) return res.status(400).send({status: "Error", error: "Id inválido"});
-    let resultDelete = await productsManager.deleteProductById(parseInt(pid));
-    res.send({status: "success", message: "Producto eliminado", payload: resultDelete});
+    if (admin == true) {
+        const { pid } = req.params;
+        if (!pid) return res.status(400).send({status: "Error", error: "Id inválido"});
+        let resultDelete = await productsManager.deleteProductById(parseInt(pid));
+        res.send({status: "success", message: "Producto eliminado", payload: resultDelete});
+    }
 });
 
 export default productsRouter;

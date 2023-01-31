@@ -23,9 +23,8 @@ cartsRouter.post('/', async(req, res) => {
     res.send({status: "success", message: "Carrito añadido", payload: newCart})
 })
 
-cartsRouter.post('/:cid/products/:pid/:quantity',async(req,res)=>{
-    const { cid, pid, quantity } = req.params;
-    const qty = parseInt(quantity);
+cartsRouter.post('/:cid/products/:pid',async(req,res)=>{
+    const { cid, pid } = req.params;
     
     const existsCart = await cartsManager.getCartById(parseInt(cid));
     if(!existsCart) return res.status(404).send({status: "error", error: "Carrito no encontrado"})
@@ -33,12 +32,18 @@ cartsRouter.post('/:cid/products/:pid/:quantity',async(req,res)=>{
     const existsProduct = await productsManager.getProductById(parseInt(pid));
     if(!existsProduct) return res.status(404).send({status: "error", error: "Producto no encontrado"})
 
+    const { quantity } = req.body;
+    if(!quantity) return res.status(400).send({status: "Error", error: "Valores incompletos"});
+    const newQty = {
+        quantity
+    }
+    const qty = parseInt(quantity);
     const isInCart = await cartsManager.isInCart(parseInt(cid), parseInt(pid));
-    if(isInCart == true) {
-        qty++
+    if (isInCart == true) {
+        newQty =  product.quantity + quantity
     }
     
-    const result = await cartsManager.saveProductsInCart(parseInt(cid), parseInt(pid), qty);
+    const result = await cartsManager.saveProductsInCart(parseInt(cid), parseInt(pid), newQty);
     res.send({status: "success", payload: result})
 });
 
