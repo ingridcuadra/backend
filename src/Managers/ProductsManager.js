@@ -7,7 +7,7 @@ export default class ProductsManager {
         this.init();
     }
     init = async() => {
-        if (!fs.existsSync(this.path)) await fs.promises.writeFile(this.path, JSON.stringify([]))
+        if (!fs.existsSync(this.path)) await fs.promises.writeFile(this.path, JSON.stringify([]));
     }
     getAllProducts = async() => {
         const data = await fs.promises.readFile(this.path, 'utf-8');
@@ -30,7 +30,7 @@ export default class ProductsManager {
         const findedId = products.find(prod => prod.id === id);
         if (findedId.id === productToUpdate.id) await fs.promises.writeFile(this.path, JSON.stringify(productToUpdate, null, '\t'));
     }
-    deleteAll = async() => {
+    deleteAllProducts = async() => {
         if (fs.existsSync(this.path)) {
             await fs.promises.writeFile(this.path, "[]")
         }
@@ -38,30 +38,7 @@ export default class ProductsManager {
     deleteProductById = async(id) => {
         const products = await this.getAllProducts();
         const newProductsArray = products.filter(prod => prod.id !== id);
-        return newProductsArray;
+        const newArray = await fs.promises.writeFile(this.path, JSON.stringify(newProductsArray, null, '\t'));
+        return newArray;
     }
 };
-
-// [
-// 	{
-// 		"title": "Osito",
-// 		"image": "https://drive.google.com/uc?export=view&id=11uc-59GI0zaNrYU9JiZVh75HasVozs_Q",
-//      "description": "Peluche con forma de oso",
-// 		"price": 199,
-// 		"stock": "100"
-// 	},
-// 	{
-// 		"title": "Gatito",
-// 		"image": "https://drive.google.com/uc?export=view&id=14PfLaUF6BBMtua7yyEycN7xvpwQTNmqL",
-//      "description": "Peluche con forma de gato",
-// 		"price": 199,
-// 		"stock": "100"
-// 	},
-// 	{
-// 		"title": "Sapito",
-// 		"image": "https://drive.google.com/uc?export=view&id=13beDo6GZedh5rZU65e11OLM4_kPANsWy",
-//      "description": "Peluche con forma de sapo",
-// 		"price": 199,
-// 		"stock": "100"
-// 	}
-// ]

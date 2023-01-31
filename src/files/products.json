@@ -1,0 +1,32 @@
+[
+	{
+		"title": "Osito",
+		"image": "https://drive.google.com/uc?export=view&id=11uc-59GI0zaNrYU9JiZVh75HasVozs_Q",
+		"description": "Peluche con forma de oso",
+		"price": 199,
+		"stock": 100,
+		"timestamp": 1675147184482,
+		"code": "wKo4Fy7",
+		"id": 1
+	},
+	{
+		"title": "Gatito",
+		"image": "https://drive.google.com/uc?export=view&id=14PfLaUF6BBMtua7yyEycN7xvpwQTNmqL",
+		"description": "Peluche con forma de gato",
+		"price": 199,
+		"stock": 100,
+		"timestamp": 1675147288815,
+		"code": "EN4XJ2h",
+		"id": 2
+	},
+	{
+		"title": "Sapito",
+		"image": "https://drive.google.com/uc?export=view&id=13beDo6GZedh5rZU65e11OLM4_kPANsWy",
+		"description": "Peluche con forma de sapo",
+		"price": 199,
+		"stock": 100,
+		"timestamp": 1675147347417,
+		"code": "EGLYOPR",
+		"id": 3
+	}
+]
