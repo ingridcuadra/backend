@@ -1,50 +1,13 @@
 import express from 'express';
-import __dirname from './utils.js';
-import handlebars from 'express-handlebars';
-import viewRouter from './routes/views.router.js';
-import apiProductRouter from './routes/api.productos.router.js';
-import { Server } from 'socket.io';
-import chatRouter from './routes/chat.router.js';
-import productosRealTimeRouter from './routes/productos.real.time.router.js';
+import productsRouter from './routes/products.router.js';
+import cartsRouter from './routes/carts.router.js';
 
 const app = express();
-
 const PORT = process.env.PORT || 8080;
-const server = app.listen(PORT, ()=>console.log(`Escuchando Express :) en el puerto ${server.address().port}`));
-
-app.engine('handlebars', handlebars.engine());
-app.set('views', __dirname+'/views');
-app.set('view engine', 'handlebars');
+const server = app.listen(PORT, ()=>console.log(`Escuchando Express en el puerto ${server.address().port} :)`));
 
 app.use(express.json());
-app.use(express.static(__dirname+'/public'));
+app.use(express.urlencoded({extended:true}));
 
-const io = new Server(server);
-
-app.use('/', viewRouter);
-app.use('/api/productos', apiProductRouter);
-app.use('/productos-en-tiempo-real', productosRealTimeRouter);
-app.use('/chat', chatRouter);
-
-const mensajes = [];
-const prodAgregado = [];
-
-io.on('connection', socket=>{
-    console.log('Socket conectado :D');
-
-    //Agregar productos
-    socket.on('enviarProd', newProd=>{
-        prodAgregado.push(newProd);
-        io.emit('prodAgregado', prodAgregado);
-    });
-
-    //Chat
-    socket.emit('mensajeCargado', mensajes);
-    socket.on('mensaje', data=>{
-        mensajes.push(data);
-        io.emit('mensajeCargado', mensajes);
-    });
-    socket.on('authenticated', data=>{
-        socket.broadcast.emit('newUserConnected', data);
-    });
-});
+app.use('/api/products', productsRouter);
+app.use('/api/carts', cartsRouter);
