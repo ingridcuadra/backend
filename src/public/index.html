@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Socket y SQL :D</title>
+</head>
+<body>
+    <div>
+        <h3>Agregar productos</h3>
+        <form id="form">
+            <label for="title">Nombre
+                <input type="text" id="title" name="title" required>
+            </label>
+            <label for="image">Imagen (URL)
+                <input type="text" id="image" name="image" required>
+            </label>
+            <label for="description">Descripción
+                <input type="text" id="description" name="description" required>
+            </label>
+            <label for="price">Precio
+                <input type="number" id="price" name="price" required>
+            </label>
+            <label for="stock">Stock
+                <input type="number" id="stock" name="stock" required>
+            </label>
+            <button>Enviar</button>
+        </form>
+    </div>
+    <div id="products"></div>
+    <div>
+        <h3>Chat para clientes</h3>
+        <label for="user">Identificate <input type="text" id="user" placeholder="Username" required></label>
+        <div id="mensajes"></div>
+        <form id="formChat">
+            <input disabled type="text" id="chat" placeholder="Envia un mensaje">
+            <button disabled id="btn">Enviar</button>
+        </form>
+    </div>
+    <script src="js/index.js"></script>
+</body>
+</html>
